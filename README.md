@@ -1,4 +1,5 @@
-# Making Money the Safe Way ### predicting the outcome of a loan
+# Making Money the Safe Way
+Using Lending Club Data to predict the outcome of loans
 
 
 
