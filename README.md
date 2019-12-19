@@ -2,7 +2,7 @@
 
 
 ## Table Of Contents
-* [https://github.com/danch12/GA_Capstone/blob/master/README.md#introduction](##Introduction)
+* [Introduction](https://github.com/danch12/GA_Capstone/blob/master/README.md#introduction)
 * [Technologies](##Technologies)
 
 
