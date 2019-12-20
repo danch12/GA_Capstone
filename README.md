@@ -132,7 +132,7 @@ Before I start there are some really good articles on model stacking that helped
 
 Explaination of Model Stacking-
 
-[Picture of Spaceship](https://cnet3.cbsistatic.com/img/MuWcyowyoNg76mJLO5a_7T-LB0c=/940x0/2016/11/11/4d0d9c72-97f0-41b0-965f-adb08b7e90c9/lexus-spaceship-valerian.jpg)
+![Picture of Spaceship](https://cnet3.cbsistatic.com/img/MuWcyowyoNg76mJLO5a_7T-LB0c=/940x0/2016/11/11/4d0d9c72-97f0-41b0-965f-adb08b7e90c9/lexus-spaceship-valerian.jpg)
 
 The ML Wave article has an great example on why you would want to stack models on top of each other, this example looks at the first spaceships and how messages were communicated.
 
