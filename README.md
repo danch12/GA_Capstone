@@ -63,7 +63,7 @@ Sources of the data -
 
 
 Even though the data came straight from Lending club it was fairly messy with quite a lot of NA values. I assumed that most of these were due to attributes that did not apply to the loanee, for example if a loanee took out a loan by themselves the joint income column would be a NA value. I grouped all of the cleaning steps into one function for ease of use. This function can be seen below -
-```
+```python
 def cleaner(data,min_list=None,max_list=None,cat_list=None,date_list=None):
      
      
