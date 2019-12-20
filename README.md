@@ -9,6 +9,13 @@ Using Lending Club Data to predict the outcome of loans
 * [Methods Used](https://github.com/danch12/GA_Capstone/blob/master/README.md#methods-used)
 * [Introduction](https://github.com/danch12/GA_Capstone/blob/master/README.md#introduction)
 * [Gathering the Data](https://github.com/danch12/GA_Capstone/blob/master/README.md#gathering-the-data)
+* [Cleaning the Data and Feature Engineering](https://github.com/danch12/GA_Capstone#cleaning-the-data-and-feature-engineering)
+* [EDA](https://github.com/danch12/GA_Capstone#eda)
+* [Modelling](https://github.com/danch12/GA_Capstone#modelling)
+* [NLP and Further Modelling](https://github.com/danch12/GA_Capstone#nlp-and-modelling)
+* [Stacking Models](https://github.com/danch12/GA_Capstone#stacking-models)
+* [Evaluation](https://github.com/danch12/GA_Capstone#evaluation)
+* [Final Thoughts and Plans for the Future](https://github.com/danch12/GA_Capstone#final-thoughts-and-plans-for-the-future)
 
 
 
@@ -90,7 +97,6 @@ The main takeaways from the EDA were -
 4) PCA seems like a good tool to use in this project as many independent variables are correlated
 
 
-[Put in graphs here]
 
 
 
@@ -98,9 +104,9 @@ The main takeaways from the EDA were -
 
 [Link to beginning of modelling section](https://github.com/danch12/GA_Capstone/blob/master/Capstone%20Modelling%20and%20Evaluation%20phase.ipynb?short_path=90fa5f0#L262)
 
-As alluded to in the EDA section, I was not hopeful when running a logistic regression model so I quickly diverted my attention towards other tree based models such as random forest and ada boost. I found much more success in these models so eventually I tried an XG boost model to comparitively great success. Overall I still was not happy with the results from the models which lead me to using NLP.
+As alluded to in the EDA section, I was not hopeful when running a logistic regression model so I quickly diverted my attention towards other tree based models such as random forest and ada boost. I found much more success in these models so eventually I tried an XG boost model to comparitively great success with a [cv](https://github.com/danch12/GA_Capstone/blob/master/Capstone%20Modelling%20and%20Evaluation%20phase.ipynb?short_path=90fa5f0#L642) score of 0.804  . Overall I still was not happy with the results from the models which lead me to using NLP.
 
-Results from the [XG Boost cv](https://github.com/danch12/GA_Capstone/blob/master/Capstone%20Modelling%20and%20Evaluation%20phase.ipynb?short_path=90fa5f0#L642) -
+
 
 
 
