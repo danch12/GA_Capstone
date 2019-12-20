@@ -52,3 +52,4 @@ Sources of the data -
 * [Wikepidia average income data](https://en.wikipedia.org/wiki/Household_income_in_the_United_States)
 * [US Census data](https://data.census.gov/cedsci/table?q=median%20income&g=&hidePreview=true&table=S1901&tid=ACSST1Y2018.S1901&t=Income%20%28Households,%20Families,%20Individuals%29&lastDisplayedRow=16&vintage=2018&mode=)
 
+
