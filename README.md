@@ -48,7 +48,7 @@ Looking across the internet I saw that Lending Club (a peer to peer lending comp
 For this project most of the data was obtained from the Lending Club website, they provide all of their loan data in some handy csv files. To supplement this, I also included data scraped from [Wikepdia](https://github.com/danch12/GA_Capstone/blob/16b422104066f7b96929d8ae142c9320008343b4/Data%20Gathering%20and%20Cleaning%20Stage.ipynb#L258) and the [US cencus](https://github.com/danch12/GA_Capstone/blob/16b422104066f7b96929d8ae142c9320008343b4/Data%20Gathering%20and%20Cleaning%20Stage.ipynb#L590) to get a better idea of the loanee's income status compared to their state average on the intuition that money goes further in different parts of the US. For example in San Francisco 100K may not be so much compared to somewhere like Alabama.
 
 Sources of the data -
-[Lending Club data](https://www.lendingclub.com/info/download-data.action)
-[Wikepidia average income data](https://en.wikipedia.org/wiki/Household_income_in_the_United_States)
-[US Census data](https://data.census.gov/cedsci/table?q=median%20income&g=&hidePreview=true&table=S1901&tid=ACSST1Y2018.S1901&t=Income%20%28Households,%20Families,%20Individuals%29&lastDisplayedRow=16&vintage=2018&mode=)
+* [Lending Club data](https://www.lendingclub.com/info/download-data.action)
+* [Wikepidia average income data](https://en.wikipedia.org/wiki/Household_income_in_the_United_States)
+* [US Census data](https://data.census.gov/cedsci/table?q=median%20income&g=&hidePreview=true&table=S1901&tid=ACSST1Y2018.S1901&t=Income%20%28Households,%20Families,%20Individuals%29&lastDisplayedRow=16&vintage=2018&mode=)
 
