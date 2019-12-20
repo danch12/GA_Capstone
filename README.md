@@ -173,7 +173,7 @@ The ML Wave article has an great example on why you would want to stack models o
 
 You could imagine that making a communication error whilst trying to land on the moon could be very costly as lives could be lost. Therefore to solve this the spacemen used [Repitition coding](https://en.wikipedia.org/wiki/Repetition_code) meaning they would send the same message a number of times and then do a majority vote.
 
-[Repition Code](http://www.inference.org.uk/mackay/itprnn/1997/l1/img13.gif)
+![Repition Code](http://www.inference.org.uk/mackay/itprnn/1997/l1/img13.gif)
 
 
 
