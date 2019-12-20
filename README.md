@@ -125,9 +125,11 @@ Following on from this I looked at the distribution of good vs bad loans in diff
 The main takeaways from the EDA were - 
 1) We should focus on lower grade loans as they seem the most volatile
 2) Income does not have as big of an impact on loans being paid as one may believe
-3)There does not seem like any linear seperation between the two classes so linear models may perform badly
-4)PCA seems like a good tool to use in this project as many independent variables are correlated
-[Put in bar graphs here]
+3) There does not seem like any linear seperation between the two classes so linear models may perform badly
+4) PCA seems like a good tool to use in this project as many independent variables are correlated
+
+
+[Put in graphs here]
 
 
 
@@ -154,9 +156,25 @@ I will keep the NLP section brief as it had very little effect on the performanc
 
 As NLP did not provide the results I wanted, I took a different path towards stacking models. This part of my project I found incredibly interesting and would like to do more of in the future.
 
-There are some really good articles on model stacking that helped me a lot with the part of my project-
+Before I start there are some really good articles on model stacking that helped me a lot with this part of my project-
 
-First and foremost the ML Wave Ensemble guide seems to be the holy book on stacking models, it can be found [Here](https://mlwave.com/kaggle-ensembling-guide/)
+1) First and foremost the ML Wave Ensemble guide seems to be the holy book on stacking models, it can be found [Here](https://mlwave.com/kaggle-ensembling-guide/)
+2) For a slightly simpler overview on stacking models, there is a really good kaggle article using the titanic dataset [Here](https://www.kaggle.com/arthurtok/introduction-to-ensembling-stacking-in-python)
+3) This is not an article but this script highlighted how you can reuse the same models to great effect [Here](https://github.com/emanuele/kaggle_pbr/blob/master/blend.py)
+4) Finally most of the above articles were quite old so I thought I'd include one that has more up to date code [Here](https://www.analyticsvidhya.com/blog/2018/06/comprehensive-guide-for-ensemble-models/)
+
+Explaination of Model Stacking-
+
+[Picture of Spaceship]
+
+The ML Wave article has an great example on why you would want to stack models on top of each other, this example looks at the first spaceships and how messages were communicated.
+
+[Communications image]
+
+You could imagine that making a communication error whilst trying to land on the moon could be very costly as lives could be lost. Therefore to solve this the spacemen used [Repitition coding](https://en.wikipedia.org/wiki/Repetition_code) meaning they would send the same message a number of times and then do a majority vote.
+
+[Repition Code](http://www.inference.org.uk/mackay/itprnn/1997/l1/img13.gif)
+
 
 
 
