@@ -18,22 +18,22 @@ Using Lending Club Data to predict the outcome of loans
 
 
 ## Packages Used
-*Pandas
-*Scikit-learn
-*Matplotlib
-*Numpy
-*itertools
-*scipy
-*xgboost
-*joblib
+* Pandas
+* Scikit-learn
+* Matplotlib
+* Numpy
+* itertools
+* scipy
+* xgboost
+* joblib
 
 ## Methods Used
 
-*Classification
-*Data Visualization
-*NLP
-*Model Stacking
-*Web Scraping
+* Classification
+* Data Visualization
+* NLP
+* Model Stacking
+* Web Scraping
 
 
 ## Introduction
