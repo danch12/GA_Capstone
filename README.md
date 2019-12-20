@@ -47,7 +47,7 @@ Looking across the internet I saw that Lending Club (a peer to peer lending comp
 
 * [Scraping data from Wikipedia](https://github.com/danch12/GA_Capstone/blob/master/Data%20Gathering%20and%20Cleaning%20Stage.ipynb?short_path=8abe515#L258)
 
-* [Getting US census data](https://github.com/danch12/GA_Capstone/blob/16b422104066f7b96929d8ae142c9320008343b4/Data%20Gathering%20and%20Cleaning%20Stage.ipynb#L590)
+* [Getting US census data](https://github.com/danch12/GA_Capstone/blob/master/Data%20Gathering%20and%20Cleaning%20Stage.ipynb?short_path=8abe515#L590)
 
 For this project most of the data was obtained from the Lending Club website, they provide all of their loan data in some handy csv files. To supplement this, I also included data scraped from Wikipedia  and the US census to get a better idea of the loanee's income status compared to their state average on the intuition that money goes further in different parts of the US. For example in San Francisco 100K may not be so much compared to somewhere like Alabama.
 
@@ -59,7 +59,7 @@ Sources of the data -
 
 ## Cleaning the Data and Feature Engineering
 
-* [Link to beginning of relevant section of Notebook](https://github.com/danch12/GA_Capstone/blob/16b422104066f7b96929d8ae142c9320008343b4/Data%20Gathering%20and%20Cleaning%20Stage.ipynb#L816)
+* [Link to beginning of relevant section of Notebook](https://github.com/danch12/GA_Capstone/blob/master/Data%20Gathering%20and%20Cleaning%20Stage.ipynb?short_path=8abe515#L816)
 
 
 Even though the data came straight from Lending club it was fairly messy with quite a lot of NA values. I assumed that most of these were due to attributes that did not apply to the loanee, for example if a loanee took out a loan by themselves the joint income column would be a NA value. I grouped all of the cleaning steps into one function for ease of use. This function can be seen below -
@@ -103,7 +103,7 @@ def cleaner(data,min_list=None,max_list=None,cat_list=None,date_list=None):
     return data
 ```
 
-[put in image of dirty data]
+
 
 
 Once the data was clean I created a couple of columns that made sense to me, such as the loanee's income vs the state average and how long it has been since the first credit line for the account was opened. 
@@ -115,6 +115,48 @@ At this stage I made the decision to limit my dataset to only include loans from
 ## EDA
 
 
+[Link to EDA](https://github.com/danch12/GA_Capstone/blob/master/EDA.ipynb)
+
+
+After cleaning the dataset I decided to explore the data visually. First I created some correlation heatmaps. You can see from below that there are a couple of areas that look extremely correlated, however a lot of these variables were later dropped before modeling because you would only know about them once the loan had completed. Having said that, the heatmap still indicates that using PCA would be a good option and this is an avenue I would like to look into in the future. After looking at the correlation of the variables generally, I looked the correlation between my target variable and my independent variables. Unfortunately almost all the most correlated variables had to be removed for the same reason as above. This left me with a couple of variables that had some correlation with loan outcome but nothing standout. The next step was to create bar graphs that visualized the distribution of good vs bad loans in different categorical variables in the data. Finally I used scatter graphs and histograms to further explore the relationship between various variables, focusing mainly on loanee income as on the face of it, income would seem like a key factor in loans defaulting.
+
+Following on from this I looked at the distribution of good vs bad loans in different categorical variables in the data.
+
+The main takeaways from the EDA were - 
+1) We should focus on lower grade loans as they seem the most volatile
+2) Income does not have as big of an impact on loans being paid as one may believe
+3)There does not seem like any linear seperation between the two classes so linear models may perform badly
+4)PCA seems like a good tool to use in this project as many independent variables are correlated
+[Put in bar graphs here]
+
+
+
+## Modelling 
+
+[Link to beginning of modelling section](https://github.com/danch12/GA_Capstone/blob/master/Capstone%20Modelling%20and%20Evaluation%20phase.ipynb?short_path=90fa5f0#L262)
+
+As alluded to in the EDA section, I was not hopeful when running a logistic regression model so I quickly diverted my attention towards other tree based models such as random forest and ada boost. I found much more success in these models so eventually I tried an XG boost model to comparitively great success. Overall I still was not happy with the results from the models which lead me to using NLP.
+
+Results from the [XG Boost cv](https://github.com/danch12/GA_Capstone/blob/master/Capstone%20Modelling%20and%20Evaluation%20phase.ipynb?short_path=90fa5f0#L642) -
+
+
+
+## NLP and Modelling
+
+[Link to processing job titles](https://github.com/danch12/GA_Capstone/blob/master/Data%20Gathering%20and%20Cleaning%20Stage.ipynb?short_path=8abe515#L1073)
+
+[Link to running models with job titles included](https://github.com/danch12/GA_Capstone/blob/master/Capstone%20Modelling%20and%20Evaluation%20phase.ipynb?short_path=90fa5f0#L925)
+
+I will keep the NLP section brief as it had very little effect on the performance of any model. I used a count vectorizor on the employment title column with a high minimum appearance limit as I wanted the model to generalize well. Additionally as the models were already taking a long time to run I only included words that were discrinatory, for example 74% of engineers fully paid off their loan compared to a baseline of 66% so the word engineer was included. In the future I will improve this section of my project and expand the amount of words included. Model performance did not increase after including the job titles. 
+
+
+## Stacking Models
+
+As NLP did not provide the results I wanted, I took a different path towards stacking models. This part of my project I found incredibly interesting and would like to do more of in the future.
+
+There are some really good articles on model stacking that helped me a lot with the part of my project-
+
+First and foremost the ML Wave Ensemble guide seems to be the holy book on stacking models, it can be found [Here](https://mlwave.com/kaggle-ensembling-guide/)
 
 
 
