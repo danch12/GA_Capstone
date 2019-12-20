@@ -62,46 +62,7 @@ Sources of the data -
 * [Link to beginning of relevant section of Notebook](https://github.com/danch12/GA_Capstone/blob/master/Data%20Gathering%20and%20Cleaning%20Stage.ipynb?short_path=8abe515#L816)
 
 
-Even though the data came straight from Lending club it was fairly messy with quite a lot of NA values. I assumed that most of these were due to attributes that did not apply to the loanee, for example if a loanee took out a loan by themselves the joint income column would be a NA value. I grouped all of the cleaning steps into one function for ease of use. This function can be seen below -
-```python
-def cleaner(data,min_list=None,max_list=None,cat_list=None,date_list=None):
-     
-     
-    all_data_na=data.isna().sum()/len(data)*100
-    all_data_na=all_data_na.drop(all_data_na[all_data_na==0].index).sort_values(ascending=False)
-    print('columns with missing data before clean-\n',all_data_na)
-    print('-'*20)
-     
-    if cat_list != None:
-         
-        for column in cat_list:
-            data[column].fillna(' ', inplace=True)
-     
-    if date_list != None:
-        
-        for column in date_list:
-            data[column]=pd.to_datetime(data[column],infer_datetime_format=True)
-             
-             
-    if min_list!=None:
-         
-        for column in min_list:
-            data[column].fillna((data[column].min()),inplace=True)
-     
-    if max_list!=None:
-         
-        for column in max_list:
-            data[column].fillna((data[column].max()),inplace=True)
-     
-    #then drop dregs
-    data.dropna(inplace=True)
-     
-    all_data_na=data.isna().sum()/len(data)*100
-    all_data_na=all_data_na.drop(all_data_na[all_data_na==0].index).sort_values(ascending=False)
-    print('columns with missing data after clean-\n',all_data_na)
-     
-    return data
-```
+Even though the data came straight from Lending club it was fairly messy with quite a lot of NA values. I assumed that most of these were due to attributes that did not apply to the loanee, for example if a loanee took out a loan by themselves the joint income column would be a NA value. I grouped all of the cleaning steps into one function for ease of use. This function can be seen [here](https://github.com/danch12/GA_Capstone/blob/78653880378cc5c4d6ab4b02d54b2048a1ccda0c/Data%20Gathering%20and%20Cleaning%20Stage.ipynb#L840)
 
 
 
@@ -175,8 +136,102 @@ You could imagine that making a communication error whilst trying to land on the
 
 ![Repition Code](http://www.inference.org.uk/mackay/itprnn/1997/l1/img13.gif)
 
+Now coming back to modelling, say we had 3 models all with 0.8 accuracy and predictions that are not correlated (important) we can take a majority vote and increase accuracy to almost 0.9. Now if we take this further and instead of doing a simple majority vote, we use the first layer model predictions as features for a second layer model, theoretically increasing accuracy.
+
+However the first step in stacking models is to make sure that your first layer models are not predicting the same thing otherwise there is no use to this exercise. This is a reason why K- nearest neighbours is often used.
+
+[Picture of prediction correlation heatmap]
+
+You can see that the model predictions are quite uncorrelated which means model stacking may be beneficial. For stacked model I used K- nearest neighbours, XG boost, ada boost, random forest, extra trees and logistic regression with the second layer model being another XG boost. I created a [class](https://github.com/danch12/GA_Capstone/blob/78653880378cc5c4d6ab4b02d54b2048a1ccda0c/Capstone%20Modelling%20and%20Evaluation%20phase.ipynb#L1418) that had similar functionality to an average sk learn class with a added function that allowed for getting first layer predictions and storing them within the class. This function can be seen below, but basically what it does is very similar to cross validation except instead of scoring it is making predictions on the out of fold fold. This is important as you do not want to train on the data that you make predictions on. The only other terms that may be slightly confusing are passthrough and use probability. Passthrough means that the second layer model also sees the training data as opposed to only seeing the predictions made by the first layer, in this project allowing passthrough lead to better scores but it seems uncommon to allow this to happen due to fears of overfitting. Finally use probability just means that instead of the model predicting the class for an observation it instead predicts the probability of the observation being in that class.
+
+```python
+
+def first_layer_predict(self, X_train, X_test, y_train):
+        '''get out of fold predictions from a model 
+        for training set and test set'''
+
+        #creating array to fit all the first layer models predictions in
+        first_layer_training = np.zeros(
+            (X_train.shape[0], len(self.base_models)))
+        first_layer_test = np.zeros((X_test.shape[0], len(self.base_models)))
+
+        #this is for if we want to use prediction probabilities or the predicted classes for second layer model
+        if self.use_probability == False:
+
+            for ind, clf in enumerate(self.base_models):
+                #init what we are going to put our predictions into
+                #predictions on training set
+                oof_train = np.zeros((X_train.shape[0], ))
+                #predictions on test set
+                oof_test = np.zeros((X_test.shape[0], ))
+                #aggregating the predictions
+                oof_test_batch = np.empty((5, X_test.shape[0]))
+
+                #now going to loop over folds in our dataset and fit a model on the training data
+                #then we predict on the training set and the test set
+                for i, (train_index, test_index) in enumerate(
+                        kf.split(X_train, y_train.values)):
+
+                    #because x is a numpy array and y is a pandas series have to do iloc on y but not on x
+                    x_batch_train = X_train[train_index]
+                    y_batch_train = y_train.iloc[train_index]
+                    x_batch_test = X_train[test_index]
+
+                    #here we are training the classifier
+                    clf.fit(x_batch_train, y_batch_train)
+                    #to keep track of what stage of modeling we are at
+                    print(ind,i)
+
+                    #here we are training the classifier
+                    #storing predictions for the test batch of X_train (bit confusing terminology)
+                    oof_train[test_index] = clf.predict(x_batch_test)
+                    #storing predictions for X_test
+                    oof_test_batch[i, :] = clf.predict(X_test)
+                #aggregating the batches
+                oof_test[:] = oof_test_batch.mean(axis=0)
+                #reshaping so they are columns instead of rows -easier to put back into a dataframe
+                first_layer_training[:,
+                                     ind] = np.ravel(oof_train.reshape(-1, 1))
+                first_layer_test[:, ind] = np.ravel(oof_test.reshape(-1, 1))
+
+            #now putting all the predictions for the first layer into self so can use the second layer for predictions
+            if self.allow_passthrough == False:
+
+                self.first_layer_train_preds = first_layer_training
+                self.first_layer_test_preds = first_layer_test
+                return first_layer_training, first_layer_test
+
+            else:
+
+                first_layer_train_data = np.concatenate(
+                    (X_train, first_layer_training), axis=1)
+                first_layer_test_data = np.concatenate(
+                    (X_test, first_layer_test), axis=1)
+                self.first_layer_train_preds = first_layer_train_data
+                self.first_layer_test_preds = first_layer_test_data
+
+```
+
+The results from using the stacked model were ok and were better than using the original XG boost model however I believe that more work needs to be done in fine tuning the hyper parameters for this model. Overall the stacked model outperforms the original model in almost every metric which I will go into further in the evaluation section of this readme. Interestingly although logistic regression performed badly on it's own, when used as a first layer model it becomes one of the more important first level models. Here is a full list of the first layer models and their feature importances.
+
+[include table of first layer model feature importances]
+
+
+## Evaluation
+
+[Link to beginning of evaluation section]
+
+To give an overview of model performance, the stacked model had a cv accuracy score of 0.815 compared to the 0.804 of the original XG boost. Further the ROC area under the curve for the stacked model was 0.9 compared to the 0.87 of the original model. Last the precision scores close but the stacked model still outperformed the unstacked model.
+
+Finally I thought that it could be a lot more harmful to predict a loan to be payed off, for it to then default Therefore I reduced the amount of false negatives by reducing the threshold probability at which the model predicted a loan to be bad. This resulted in a precision of 0.91 for predicting fully paid loans. 
 
 
 
+
+## Final Thoughts and Plans for the Future
+
+Overall it can be argued that on a large scale the difference in the two models would lead to a substantial increase in bad loan detection and therefore be worth the extra computational costs. Some important features common across all models made sense- those including late fees gathered throughout the loan, interest rate, and DTI. However it was suprising that credit inquiries into the loan had such a large effect- easily the largest impact feature.
+
+In the future I would like to further this project by first increasing the scope of the data to include other years maybe eventually using PySpark to achieve this, and second try to obtain data on the full lifecyle of loans to gain a more concrete idea of the features available whilst a loan is still active as this part of the project proved difficult. I would also like to try different combinations of stacked models to see if they could provide better results and justify the extra complexity further. Using prediction probabilities has a lot of promise and I would want to further optimise the second level model that uses these. Finally although I tried using PCA to reduce model complexity,I did not have time to optimize hyperparameters for models using features processed by PCA, in the future I would like to do this as it may somewhat offset the increase in model complexity for a stacked model.
 
 
