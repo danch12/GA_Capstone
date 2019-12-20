@@ -45,7 +45,7 @@ Looking across the internet I saw that Lending Club (a peer to peer lending comp
 
 * [Link to beginning of relevant section of Notebook](https://github.com/danch12/GA_Capstone/blob/16b422104066f7b96929d8ae142c9320008343b4/Data%20Gathering%20and%20Cleaning%20Stage.ipynb#L53)
 
-* [Scraping data from Wikipedia](https://github.com/danch12/GA_Capstone/blob/16b422104066f7b96929d8ae142c9320008343b4/Data%20Gathering%20and%20Cleaning%20Stage.ipynb#L265)
+* [Scraping data from Wikipedia](https://github.com/danch12/GA_Capstone/blob/master/Data%20Gathering%20and%20Cleaning%20Stage.ipynb?short_path=8abe515#L258)
 
 * [Getting US census data](https://github.com/danch12/GA_Capstone/blob/16b422104066f7b96929d8ae142c9320008343b4/Data%20Gathering%20and%20Cleaning%20Stage.ipynb#L590)
 
@@ -106,7 +106,15 @@ def cleaner(data,min_list=None,max_list=None,cat_list=None,date_list=None):
 [put in image of dirty data]
 
 
-Once the data was clean I created a couple of columns that made sense to me, such as the loanee's income vs the state average and how long it has been since the first credit line for the account was opened.
+Once the data was clean I created a couple of columns that made sense to me, such as the loanee's income vs the state average and how long it has been since the first credit line for the account was opened. 
+
+
+At this stage I made the decision to limit my dataset to only include loans from 2014 which were given a grading of C or lower. This is because the dataset was massive and from doing some initial modelling I realised that the time it took to run any form of model would lead to me falling behind and missing deadlines.Because of this I decided to look at loans that were higher risk with higher returns for investors as those are the loans that have the greatest payoff. 
+
+
+## EDA
+
+
 
 
 
