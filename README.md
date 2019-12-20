@@ -1,20 +1,21 @@
-# Making Money the Safe Way
+# When Is it a good time to be a loan
 Using Lending Club Data to predict the outcome of loans
 
 
 
 ## Table Of Contents
-* [Technologies Used](##Technologies)
-* [Packages Used] 
-* [Methods Used] (## Methods Used)
+* [Technologies Used](https://github.com/danch12/GA_Capstone/blob/master/README.md#technologies-used)
+* [Packages Used] (https://github.com/danch12/GA_Capstone/blob/master/README.md#packages-used)
+* [Methods Used] (https://github.com/danch12/GA_Capstone/blob/master/README.md#methods-used)
 * [Introduction](https://github.com/danch12/GA_Capstone/blob/master/README.md#introduction)
+* [Gathering the Data] (https://github.com/danch12/GA_Capstone/blob/master/README.md#gathering-the-data)
 
 
 
 
 ## Technologies Used
-*Python 3.0
-*Jupyter Notebook
+* Python 3.0
+* Jupyter Notebook
 
 
 ## Packages Used
