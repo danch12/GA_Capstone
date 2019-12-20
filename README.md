@@ -132,11 +132,11 @@ Before I start there are some really good articles on model stacking that helped
 
 Explaination of Model Stacking-
 
-[Picture of Spaceship]
+[Picture of Spaceship](https://cnet3.cbsistatic.com/img/MuWcyowyoNg76mJLO5a_7T-LB0c=/940x0/2016/11/11/4d0d9c72-97f0-41b0-965f-adb08b7e90c9/lexus-spaceship-valerian.jpg)
 
 The ML Wave article has an great example on why you would want to stack models on top of each other, this example looks at the first spaceships and how messages were communicated.
 
-[Communications image]
+![Communications image](https://media.npr.org/assets/img/2013/10/02/mission-control_wide-a5420ab5246dcadee1a8ae74fc6d2dcd308bab8f-s800-c85.jpg)
 
 You could imagine that making a communication error whilst trying to land on the moon could be very costly as lives could be lost. Therefore to solve this the spacemen used [Repitition coding](https://en.wikipedia.org/wiki/Repetition_code) meaning they would send the same message a number of times and then do a majority vote.
 
@@ -146,9 +146,9 @@ Now coming back to modelling, say we had 3 models all with 0.8 accuracy and pred
 
 However the first step in stacking models is to make sure that your first layer models are not predicting the same thing otherwise there is no use to this exercise. This is a reason why K- nearest neighbours is often used.
 
-[Picture of prediction correlation heatmap]
+![Picture of prediction correlation heatmap](https://github.com/danch12/GA_Capstone/blob/master/pictures_for_readme/Screenshot%202019-12-20%20at%2012.04.43.png)
 
-You can see that the model predictions are quite uncorrelated which means model stacking may be beneficial. For stacked model I used K- nearest neighbours, XG boost, ada boost, random forest, extra trees and logistic regression with the second layer model being another XG boost. I created a [class](https://github.com/danch12/GA_Capstone/blob/78653880378cc5c4d6ab4b02d54b2048a1ccda0c/Capstone%20Modelling%20and%20Evaluation%20phase.ipynb#L1418) that had similar functionality to an average sk learn class with a added function that allowed for getting first layer predictions and storing them within the class. This function can be seen below, but basically what it does is very similar to cross validation except instead of scoring it is making predictions on the out of fold fold. This is important as you do not want to train on the data that you make predictions on. The only other terms that may be slightly confusing are passthrough and use probability. Passthrough means that the second layer model also sees the training data as opposed to only seeing the predictions made by the first layer, in this project allowing passthrough lead to better scores but it seems uncommon to allow this to happen due to fears of overfitting. Finally use probability just means that instead of the model predicting the class for an observation it instead predicts the probability of the observation being in that class.
+You can see that the model predictions are quite uncorrelated which means model stacking may be beneficial. For stacked model I used K- nearest neighbours, XG boost, ada boost, random forest, extra trees and logistic regression with the second layer model being another XG boost. I created a [class](https://github.com/danch12/GA_Capstone/blob/master/Capstone%20Modelling%20and%20Evaluation%20phase.ipynb?short_path=90fa5f0#L1418) that had similar functionality to an average sk learn class with a added function that allowed for getting first layer predictions and storing them within the class. This function can be seen below, but basically what it does is very similar to cross validation except instead of scoring it is making predictions on the out of fold fold. This is important as you do not want to train on the data that you make predictions on. The only other terms that may be slightly confusing are passthrough and use probability. Passthrough means that the second layer model also sees the training data as opposed to only seeing the predictions made by the first layer, in this project allowing passthrough lead to better scores but it seems uncommon to allow this to happen due to fears of overfitting. Finally use probability just means that instead of the model predicting the class for an observation it instead predicts the probability of the observation being in that class.
 
 ```python
 
@@ -218,14 +218,13 @@ def first_layer_predict(self, X_train, X_test, y_train):
 
 ```
 
-The results from using the stacked model were ok and were better than using the original XG boost model however I believe that more work needs to be done in fine tuning the hyper parameters for this model. Overall the stacked model outperforms the original model in almost every metric which I will go into further in the evaluation section of this readme. Interestingly although logistic regression performed badly on it's own, when used as a first layer model it becomes one of the more important first level models. Here is a full list of the first layer models and their feature importances.
+The results from using the stacked model were ok and were better than using the original XG boost model however I believe that more work needs to be done in fine tuning the hyper parameters for this model. Overall the stacked model outperforms the original model in almost every metric which I will go into further in the evaluation section of this readme. Interestingly although logistic regression performed badly on it's own, when used as a first layer model it becomes one of the more important first level models. [Here](https://github.com/danch12/GA_Capstone/blob/master/Capstone%20Modelling%20and%20Evaluation%20phase.ipynb?short_path=90fa5f0#L2057) is a full list of the first layer models and their feature importances.
 
-[include table of first layer model feature importances]
 
 
 ## Evaluation
 
-[Link to beginning of evaluation section]
+[Link to beginning of evaluation section](https://github.com/danch12/GA_Capstone/blob/master/Capstone%20Modelling%20and%20Evaluation%20phase.ipynb?short_path=90fa5f0#L2394)
 
 To give an overview of model performance, the stacked model had a cv accuracy score of 0.815 compared to the 0.804 of the original XG boost. Further the ROC area under the curve for the stacked model was 0.9 compared to the 0.87 of the original model. Last the precision scores close but the stacked model still outperformed the unstacked model.
 
