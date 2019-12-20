@@ -228,7 +228,7 @@ The results from using the stacked model were ok and were better than using the 
 
 To give an overview of model performance, the stacked model had a cv accuracy score of 0.815 compared to the 0.804 of the original XG boost. Further the ROC area under the curve for the stacked model was 0.9 compared to the 0.87 of the original model. Last the precision scores close but the stacked model still outperformed the unstacked model.
 
-Finally I thought that it could be a lot more harmful to predict a loan to be payed off, for it to then default Therefore I reduced the amount of false negatives by reducing the threshold probability at which the model predicted a loan to be bad. This resulted in a precision of 0.91 for predicting fully paid loans. 
+Finally I thought that it could be a lot more harmful to predict a loan to be payed off, for it to then default. Therefore I reduced the amount of false negatives by reducing the threshold probability at which the model predicted a loan to be bad. This resulted in a precision of 0.91 for predicting fully paid loans. 
 
 
 
