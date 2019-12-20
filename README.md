@@ -43,4 +43,4 @@ Looking across the internet I saw that Lending Club (a peer to peer lending comp
 
 ## Gathering The Data
 
-For this project most of the data was obtained from the Lending Club website,
+For this project most of the data was obtained from the Lending Club website, they provide all of their loan data in some handy csv files. To supplement this, I also included 
