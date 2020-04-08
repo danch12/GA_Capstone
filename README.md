@@ -30,10 +30,11 @@ Using Lending Club Data to predict the outcome of loans
 * Scikit-learn
 * Matplotlib
 * Numpy
-* itertools
-* scipy
+* Itertools
+* Scipy
 * xgboost
-* joblib
+* Joblib
+* Requests
 
 ## Methods Used
 
